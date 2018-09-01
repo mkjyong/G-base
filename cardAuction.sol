@@ -1,15 +1,15 @@
 pragma solidity ^0.4.21;
 
-import "./itemownership.sol";
+import "./cardownership.sol";
 
 //this contract is to do an Auction to sell game item.
-contract itemAuction is ItemOwnership {
+contract cardAuction is CardOwnership {
     // Parameters of the auction. Times are either
     // absolute unix timestamps (seconds since 1970-01-01)
     // or time periods in seconds.
     address public beneficiary;
     uint public auctionEnd;
-    uint biddingItem;
+    uint biddingCard;
 
     // Current state of the auction.
     address public highestBidder;
@@ -33,10 +33,10 @@ contract itemAuction is ItemOwnership {
     /// Create a simple auction with `_biddingTime`
     /// seconds bidding time on behalf of the
     /// beneficiary address `_beneficiary`.
-    constructor(uint _biddingTime, uint _biddingItem) public {
+    constructor(uint _biddingTime, uint _biddingCard) public {
         beneficiary = msg.sender;
         auctionEnd = now + _biddingTime;
-        biddingItem = _biddingItem;
+        biddingCard = _biddingCard;
         ended = false;
     }
 
@@ -116,6 +116,6 @@ contract itemAuction is ItemOwnership {
 
         // 3. Interaction
         beneficiary.transfer(highestBid);
-        transfer(highestBidder, biddingItem);
+        transfer(highestBidder, biddingCard);
     }
 }

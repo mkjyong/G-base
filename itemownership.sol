@@ -1,11 +1,11 @@
 pragma solidity ^0.4.19;
 
 
-import "./erc721_item.sol";
+import "./erc721.sol";
 import "./safemath.sol";
 import "./itemfactory.sol";
 
-contract ItemOwnership is ERC721_item, itemFactory {
+contract ItemOwnership is ERC721, itemFactory {
 
     using SafeMath for uint256;
 
@@ -21,7 +21,7 @@ contract ItemOwnership is ERC721_item, itemFactory {
 
     function approve(address _to, uint128 _tokenId) public onlyOwnerOf(_tokenId) {
         itemApprovals[_tokenId] = _to;
-        emit itemApproval(msg.sender, _to, _tokenId);
+        emit Approval(msg.sender, _to, _tokenId);
     }
 
     function takeOwnership(uint128 _tokenId) public {
@@ -35,6 +35,6 @@ contract ItemOwnership is ERC721_item, itemFactory {
         ownerToItem[_from].length--;
         item memory temp = swift(_tokenId, _from);
         ownerToItem[_to].push(temp);
-        emit itemTransfer(_from, _to, _tokenId);
+        emit Transfer(_from, _to, _tokenId);
     }
 }

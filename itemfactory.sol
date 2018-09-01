@@ -3,10 +3,8 @@ pragma experimental ABIEncoderV2;
 
 import "./ownable.sol";
 import "./safemath.sol";
-import "./goldownership.sol";
 
-
-contract itemFactory is goldOwnership {
+contract itemFactory {
 
     using SafeMath for uint256;
 

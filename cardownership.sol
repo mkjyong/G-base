@@ -2,11 +2,11 @@ pragma solidity ^0.4.19;
 
 
 import "./cardfactory.sol";
-import "./erc721_card.sol";
+import "./erc721.sol";
 import "./safemath.sol";
 
 
-contract CardOwnership is CardFactory, ERC721_card {
+contract CardOwnership is CardFactory, ERC721 {
 
     using SafeMath for uint256;
 
@@ -26,7 +26,7 @@ contract CardOwnership is CardFactory, ERC721_card {
 
     function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
         cardApprovals[_tokenId] = _to;
-        emit cardApproval(msg.sender, _to, _tokenId);
+        emit Approval(msg.sender, _to, _tokenId);
     }
 
     function takeOwnership(uint256 _tokenId) public {
@@ -39,7 +39,7 @@ contract CardOwnership is CardFactory, ERC721_card {
         ownerCardCount[_to] = ownerCardCount[_to].add(1);
         ownerCardCount[msg.sender] = ownerCardCount[msg.sender].sub(1);
         cardToOwner[_tokenId] = _to;
-        emit cardTransfer(_from, _to, _tokenId);
+        emit Transfer(_from, _to, _tokenId);
     }
 
    
